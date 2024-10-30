@@ -1,28 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ShortenURL />
+    <URLStats />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ShortenURL from './components/ShortenURL.vue';
+import URLStats from './components/URLStats.vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    ShortenURL,
+    URLStats,
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

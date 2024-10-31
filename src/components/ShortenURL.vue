@@ -1,3 +1,4 @@
+
 <template>
   <div class="container">
     <h2>Shorten URL - Drive lah</h2>
@@ -26,9 +27,15 @@
       <label for="expiration">Set Expiration (optional):</label>
       <input type="datetime-local" v-model="expiration" id="expiration" />
 
-      <button type="submit" class="submit-button">Shorten URL</button>
+      <button type="submit" class="submit-button" :disabled="loading">
+        {{ loading ? "Shortening..." : "Shorten URL" }}
+      </button>
     </form>
-    <div v-if="shortUrl" class="result">
+    <div v-if="loading" class="loading-spinner">
+      <!-- Loading Spinner or Message -->
+      <p>Loading, please wait...</p>
+    </div>
+    <div v-if="shortUrl && !loading" class="result">
       <p>Shortened URL:</p>
       <a :href="shortUrl" target="_blank">{{ shortUrl }}</a>
     </div>
@@ -45,6 +52,7 @@ export default {
       shortUrl: '',
       urlError: '',
       aliasError: '',
+      loading: false, // Added loading state
     };
   },
   methods: {
@@ -53,12 +61,12 @@ export default {
       return urlPattern.test(url);
     },
     async shortenUrl() {
-      // Reset errors
       this.urlError = '';
       this.aliasError = '';
+      this.loading = true;
 
-      // URL validation
       if (!this.validateUrl(this.originalUrl)) {
+        this.loading = false;
         alert('Please enter a valid URL.');
         return;
       }
@@ -71,7 +79,6 @@ export default {
         });
         this.shortUrl = response.data.shortUrl;
       } catch (error) {
-        // Handle specific error codes
         if (error.response) {
           if (error.response.status === 409) {
             alert('The custom alias already exists. Please choose another one.');
@@ -84,6 +91,8 @@ export default {
           console.error("Error shortening URL:", error);
           alert("An unexpected error occurred. Please check your internet connection and try again.");
         }
+      } finally {
+        this.loading = false;
       }
     },
   },
@@ -169,5 +178,11 @@ input:focus {
 
 .result a:hover {
   text-decoration: underline;
+}
+
+.loading-spinner {
+  text-align: center;
+  color: #555;
+  margin-top: 20px;
 }
 </style>

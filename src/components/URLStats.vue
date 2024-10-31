@@ -1,13 +1,25 @@
-<template>
+<t<template>
   <div class="container">
     <h2>URL Statistics</h2>
     <form @submit.prevent="getStats" class="form">
       <label for="shortUrl">Enter Shortened URL:</label>
-      <input type="text" v-model="shortUrlId" id="shortUrl" required placeholder="http://localhost:3000/url/shortUrlId" />
-      <button type="submit" class="submit-button">Get Stats</button>
+      <input
+          type="text"
+          v-model="shortUrlId"
+          id="shortUrl"
+          required
+          placeholder="http://localhost:3000/url/shortUrlId"
+      />
+      <button type="submit" class="submit-button" :disabled="loading">
+        {{ loading ? "Loading..." : "Get Stats" }}
+      </button>
     </form>
 
-    <div v-if="stats" class="stats">
+    <div v-if="loading" class="loading-spinner">
+      <p>Loading, please wait...</p>
+    </div>
+
+    <div v-if="stats && !loading" class="stats">
       <h3>Statistics</h3>
       <p><strong>Original URL:</strong> <a :href="stats.originalUrl" target="_blank">{{ stats.originalUrl }}</a></p>
       <p><strong>Hits:</strong> {{ stats.hits }}</p>
@@ -41,6 +53,7 @@ export default {
     return {
       shortUrlId: '',
       stats: null,
+      loading: false, // Loading state
     };
   },
   methods: {
@@ -59,11 +72,15 @@ export default {
         console.error("Invalid URL format. Could not extract ID.");
         return;
       }
+      this.loading = true;
+
       try {
         const response = await this.$http.get(`/url/stats/${extractedId}`);
         this.stats = response.data;
       } catch (error) {
         console.error("Error retrieving stats:", error);
+      } finally {
+        this.loading = false;
       }
     },
     formatTimestamp(timestamp) {
@@ -132,5 +149,11 @@ input {
 .analytics-table th {
   background-color: #f2f2f2;
   font-weight: bold;
+}
+
+.loading-spinner {
+  text-align: center;
+  color: #555;
+  margin-top: 20px;
 }
 </style>

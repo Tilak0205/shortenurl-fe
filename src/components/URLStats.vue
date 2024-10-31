@@ -23,7 +23,7 @@
       <h3>Statistics</h3>
       <p><strong>Original URL:</strong> <a :href="stats.originalUrl" target="_blank">{{ stats.originalUrl }}</a></p>
       <p><strong>Hits:</strong> {{ stats.hits }}</p>
-      <p><strong>Expiration:</strong> {{ stats.expiration || 'None' }}</p>
+      <p><strong>Expiration:</strong> {{ formatTimestamp(stats.expiration) || 'None' }}</p>
 
       <h3>Analytics</h3>
       <table v-if="stats.analytics && stats.analytics.length" class="analytics-table">

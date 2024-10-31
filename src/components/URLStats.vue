@@ -1,4 +1,4 @@
-<t<template>
+<template>
   <div class="container">
     <h2>URL Statistics</h2>
     <form @submit.prevent="getStats" class="form">
@@ -21,7 +21,7 @@
 
     <div v-if="stats && !loading" class="stats">
       <h3>Statistics</h3>
-      <p><strong>Original URL:</strong> <a :href="stats.originalUrl" target="_blank">{{ stats.originalUrl }}</a></p>
+      <p><strong>Original URL:</strong> <a :href="stats.originalUrl" class="original-url-link" target="_blank">{{ stats.originalUrl }}</a></p>
       <p><strong>Hits:</strong> {{ stats.hits }}</p>
       <p><strong>Expiration:</strong> {{ formatTimestamp(stats.expiration) }}</p>
 
@@ -158,5 +158,17 @@ input {
   text-align: center;
   color: #555;
   margin-top: 20px;
+}
+
+.original-url-link {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.original-url-link:hover {
+  text-decoration: underline;
 }
 </style>

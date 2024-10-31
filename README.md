@@ -10,15 +10,8 @@ yarn install
 yarn serve
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+### Click the below link for live application.
+https://shortenurl-fe.vercel.app/
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Here is the backend code for this application.
+[https://github.com/Tilak0205/shortenurl](https://github.com/Tilak0205/shortenurl)

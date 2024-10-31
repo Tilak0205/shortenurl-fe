@@ -75,7 +75,6 @@ export default {
 </script>
 
 <style scoped>
-/* Style for the container and general layout */
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -85,7 +84,6 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* General styling for form and result */
 .form, .stats {
   display: flex;
   flex-direction: column;
@@ -119,7 +117,6 @@ input {
   background-color: #0056b3;
 }
 
-/* Styling for analytics table */
 .analytics-table {
   width: 100%;
   border-collapse: collapse;

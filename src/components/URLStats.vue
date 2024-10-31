@@ -24,7 +24,7 @@
         </thead>
         <tbody>
         <tr v-for="(entry, index) in stats.analytics" :key="index">
-          <td>{{ entry.timestamp }}</td>
+          <td>{{ formatTimestamp(entry.timestamp) }}</td>
           <td>{{ entry.location || 'Unknown' }}</td>
           <td>{{ entry.browser || 'Unknown' }}</td>
         </tr>
@@ -65,6 +65,10 @@ export default {
       } catch (error) {
         console.error("Error retrieving stats:", error);
       }
+    },
+    formatTimestamp(timestamp) {
+      const date = new Date(timestamp);
+      return date.toLocaleString();
     },
   },
 };
